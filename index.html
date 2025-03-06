@@ -7,12 +7,12 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 
   <style>
-    /* Основни стилове за сайта */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
+    /* Пример: ограничаваме ширината на навигацията, за да има място за приветствие горе вдясно */
+    nav.navbar.fixed-top {
+      max-width: 1200px; /* или колкото желаете */
+      margin: 0 auto;
     }
+
     .hero {
       background: url('hero-bg.jpg') center/cover no-repeat;
       text-align: center;
@@ -37,13 +37,6 @@
     .section {
       padding: 60px 20px;
       text-align: center;
-    }
-    .services img,
-    .reviews img,
-    .partners img {
-      width: 100%;
-      height: auto;
-      border-radius: 10px;
     }
     .footer {
       background: #222;
@@ -89,19 +82,19 @@
       background-color: #0056b3;
     }
 
-    /* Съобщение за успешен вход + бутон за изход в горния десен ъгъл */
+    /* Съобщение за успешен вход + бутон за изход (горен десен ъгъл) */
     #welcomeMessage {
       position: fixed;
-      top: 10px;
-      right: 10px;
+      top: 70px; /* Нагласете спрямо височината на вашата навигация */
+      right: 20px;
       background: #28a745;
-      color: #FFFFFF;
+      color: white;
       padding: 10px 20px;
       border-radius: 5px;
-      display: none;           /* Скрито по подразбиране */
-      align-items: center;     /* За да подредим бутона и текста в една линия */
-      gap: 10px;               /* Разстояние между текста и бутона */
-	  z-index: 9999; /* по-високо от Bootstrap navbar-a */
+      display: none;  /* Скрито по подразбиране */
+      align-items: center;
+      gap: 10px;
+      z-index: 9999;  /* Над навигацията */
     }
     #logoutBtn {
       background: #ffffff;
@@ -121,7 +114,7 @@
 <body>
   <!-- Navigation Menu -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-    <div class="container">
+    <div class="container-fluid">
       <a class="navbar-brand" href="#">Unique Moments</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
@@ -204,7 +197,7 @@
     <a href="#services" class="cta-btn">Открий повече</a>
   </section>
 
-  <!-- Services -->
+  <!-- Services (пример) -->
   <section id="services" class="section">
     <h2>Нашите топ предложения</h2>
     <div class="container">
@@ -234,14 +227,14 @@
     <a href="#gallery" class="cta-btn">услугите</a>
   </section>
 
-  <!-- Video Gallery -->
+  <!-- Video Gallery (пример) -->
   <section id="gallery" class="section bg-light">
     <h2>Виж магията в действие</h2>
     <iframe width="560" height="315" src="https://www.youtube.com/embed/your-video-id" frameborder="0" allowfullscreen></iframe>
     <a href="#reviews" class="cta-btn">Разгледай още</a>
   </section>
 
-  <!-- Reviews -->
+  <!-- Reviews (пример) -->
   <section id="reviews" class="section">
     <h2>Какво казват клиентите?</h2>
     <div class="container">
@@ -263,14 +256,14 @@
     <a href="#discounts" class="cta-btn">Виж още отзиви</a>
   </section>
 
-  <!-- Special Offers -->
+  <!-- Special Offers (пример) -->
   <section id="discounts" class="section bg-light">
     <h2>Промоции за твоето събитие</h2>
     <p>✅ 10% отстъпка за ранни резервации!</p>
     <a href="#reservation" class="cta-btn">Резервирай сега и вземи отстъпка!</a>
   </section>
 
-  <!-- Reservation Form -->
+  <!-- Reservation Form (пример) -->
   <section id="reservation" class="section">
     <h2>Запази своята спомени!</h2>
     <form>
@@ -298,7 +291,7 @@
   <script>
     let registeredUsers = []; // Тук пазим регистрираните потребители
 
-    // 1. Валидация на регистрационната форма
+    // Функция за валидация на регистрационната форма
     function validateRegistrationForm() {
       let valid = true;
       const name = document.getElementById('regName').value;
@@ -324,7 +317,7 @@
       return valid;
     }
 
-    // 2. Обработчик при регистрация
+    // Обработчик при регистрация
     function handleRegistrationSubmit(e) {
       e.preventDefault();
 
@@ -344,7 +337,7 @@
       }
     }
 
-    // 3. Валидация на формата за вход
+    // Функция за валидация на формата за вход
     function validateLoginForm() {
       let valid = true;
       const email = document.getElementById('loginEmail').value;
@@ -364,7 +357,7 @@
       return valid;
     }
 
-    // 4. Обработчик при вход
+    // Обработчик при вход
     function handleLoginSubmit(e) {
       e.preventDefault();
 
@@ -379,13 +372,16 @@
           // Скриваме формата за вход
           document.getElementById('loginFormContainer').style.display = 'none';
 
+          // >>> Скриваме и формата за регистрация <<<
+          document.getElementById('registrationFormContainer').style.display = 'none';
+
           // Показваме съобщение в горния десен ъгъл
           const welcomeDiv = document.getElementById('welcomeMessage');
           const welcomeText = document.getElementById('welcomeText');
           welcomeText.textContent = `Добре дошъл, ${user.name}!`;
           welcomeDiv.style.display = 'flex'; // 'flex', за да подредим текста и бутона
 
-          // Нулираме формата
+          // Нулираме формата за вход
           document.getElementById('loginForm').reset();
         } else {
           document.getElementById('loginEmailError').textContent = 'Няма регистриран потребител с тези данни.';
@@ -393,18 +389,18 @@
       }
     }
 
-    // 5. Изход
+    // Изход (Logout)
     function handleLogout() {
       // Скриваме съобщението
       document.getElementById('welcomeMessage').style.display = 'none';
       document.getElementById('welcomeText').textContent = '';
 
-      // Показваме отново формите (ако желаем и регистрацията)
+      // Показваме отново формите (за да може друг да се регистрира или влезе)
       document.getElementById('loginFormContainer').style.display = 'block';
       document.getElementById('registrationFormContainer').style.display = 'block';
     }
 
-    // Добавяне на слушатели за събитията
+    // Слушатели за събития
     document.getElementById('registrationForm').addEventListener('submit', handleRegistrationSubmit);
     document.getElementById('loginForm').addEventListener('submit', handleLoginSubmit);
     document.getElementById('logoutBtn').addEventListener('click', handleLogout);
