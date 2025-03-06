@@ -1,145 +1,413 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unique Moments</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <style>
-        body { font-family: Arial, sans-serif; }
-        .hero { background: url('hero-bg.jpg') center/cover no-repeat; text-align: center; padding: 100px 20px; color: white; }
-        .hero h1 { font-size: 3rem; font-weight: bold; }
-        .cta-btn { background: #ff4500; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-size: 1.2rem; }
-        .cta-btn:hover { background: #e03e00; }
-        .section { padding: 60px 20px; text-align: center; }
-        .services img, .reviews img, .partners img { width: 100%; height: auto; border-radius: 10px; }
-        .footer { background: #222; color: white; text-align: center; padding: 20px; }
-    </style> 
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unique Moments - Регистрация и Вход</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+  <style>
+    /* Основни стилове за сайта */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .hero {
+      background: url('hero-bg.jpg') center/cover no-repeat;
+      text-align: center;
+      padding: 100px 20px;
+      color: white;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: bold;
+    }
+    .cta-btn {
+      background: #ff4500;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 1.2rem;
+    }
+    .cta-btn:hover {
+      background: #e03e00;
+    }
+    .section {
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .services img,
+    .reviews img,
+    .partners img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+    .footer {
+      background: #222;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    /* Стилове за регистрация и вход */
+    .error {
+      color: red;
+    }
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      width: 300px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background-color: #f9f9f9;
+    }
+    .form-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+    .form-container input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .form-container button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .form-container button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Съобщение за успешен вход + бутон за изход в горния десен ъгъл */
+    #welcomeMessage {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: #28a745;
+      color: #FFFFFF;
+      padding: 10px 20px;
+      border-radius: 5px;
+      display: none;           /* Скрито по подразбиране */
+      align-items: center;     /* За да подредим бутона и текста в една линия */
+      gap: 10px;               /* Разстояние между текста и бутона */
+	  z-index: 9999; /* по-високо от Bootstrap navbar-a */
+    }
+    #logoutBtn {
+      background: #ffffff;
+      color: #28a745;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    #logoutBtn:hover {
+      background: #e8e8e8;
+    }
+  </style>
 </head>
+
 <body>
-        <!-- Navigation Menu -->
-    
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">Unique Moments</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link" href="#">НАЧАЛО</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#services">УСЛУГИ</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#pricing">ЦЕНОРАЗПИС И ПАКЕТИ</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#gallery">ГАЛЕРИЯ</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#reservation">РЕЗЕРВАЦИИ</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#blog">БЛОГ И СТАТИИ</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#about">ЗА НАС</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">КОНТАКТИ</a></li>
-                </ul>
-            </div>
+  <!-- Navigation Menu -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Unique Moments</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item"><a class="nav-link" href="#">НАЧАЛО</a></li>
+          <li class="nav-item"><a class="nav-link" href="#services">УСЛУГИ</a></li>
+          <li class="nav-item"><a class="nav-link" href="#pricing">ЦЕНОРАЗПИС И ПАКЕТИ</a></li>
+          <li class="nav-item"><a class="nav-link" href="#gallery">ГАЛЕРИЯ</a></li>
+          <li class="nav-item"><a class="nav-link" href="#reservation">РЕЗЕРВАЦИИ</a></li>
+          <li class="nav-item"><a class="nav-link" href="#blog">БЛОГ И СТАТИИ</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">ЗА НАС</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">КОНТАКТИ</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Създай уникални спомени!</h1>
+    <p>Улови всеки ъгъл.</p>
+    <a href="#reservation" class="cta-btn">Резервирай сега</a>
+  </section>
+
+  <!-- Контейнер за формите за регистрация и вход -->
+  <section class="section" id="userAuth">
+    <!-- Регистрация -->
+    <div class="form-container" id="registrationFormContainer">
+      <h2>Регистрация</h2>
+      <form id="registrationForm">
+        <div class="form-group">
+          <label for="regName">Име:</label>
+          <input type="text" id="regName" placeholder="Вашето име">
+          <span id="regNameError" class="error"></span>
         </div>
-    </nav>
 
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <h1>Създай уникални спомени !</h1>
-        
-        <p>Улови всеки ъгъл.</p>
-        <a href="#reservation" class="cta-btn">Резервирай сега</a>
-    </section>
-
-    <!-- About Section -->
-    <section class="section bg-light">
-        <h2>Твоето събитие от всеки ъгъл!</h2>
-        <p>Добре дошли в  – твоето място!</p>
-        <a href="#services" class="cta-btn">Открий повече</a>
-    </section>
-
-    <!-- Services -->
-    <section id="services" class="section">
-        <h2>Нашите топ предложения</h2>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <img src="photo.jpg" alt=" ">
-                    <h4> уау</h4>
-                    <p> с приятели.</p>
-                </div>
-                <div class="col-md-3">
-                    <img src="static-photo.jpg" alt="Статична визуализация">
-                    <h4> </h4>
-                    <p>момнти.</p>
-                </div>
-                <div class="col-md-3">
-                    <img src="phone.jpg" alt="фоне">
-                    <h4>репоН</h4>
-                    <p>Запиши  пожелания.</p>
-                </div>
-                <div class="col-md-3">
-                    <img src="green-screen.jpg" alt="Зелен екран">
-                    <h4>ЕКРАН</h4>
-                    <p> фонове.</p>
-                </div>
-            </div>
+        <div class="form-group">
+          <label for="regEmail">Имейл:</label>
+          <input type="email" id="regEmail" placeholder="Вашият имейл">
+          <span id="regEmailError" class="error"></span>
         </div>
-        <a href="#gallery" class="cta-btn"> услугите</a>
-    </section>
 
-    <!-- Video Gallery -->
-    <section id="gallery" class="section bg-light">
-        <h2>Виж магията в действие</h2>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/your-video-id" frameborder="0" allowfullscreen></iframe>
-        <a href="#reviews" class="cta-btn">Разгледай още</a>
-    </section>
-
-    <!-- Reviews -->
-    <section id="reviews" class="section">
-        <h2>Какво казват клиентите?</h2>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <img src="review1.jpg" alt="Отзив 1">
-                    <p>„Най-голямото забавление “</p>
-                </div>
-                <div class="col-md-4">
-                    <img src="review2.jpg" alt="Отзив 2">
-                    <p>„Перфектно за фирмени партита!“ - Иван Петров</p>
-                </div>
-                <div class="col-md-4">
-                    <img src="review3.jpg" alt="Отзив 3">
-                    <p>„Супер забавно и лесно!“ - Георги Димитров</p>
-                </div>
-            </div>
+        <div class="form-group">
+          <label for="regPassword">Парола:</label>
+          <input type="password" id="regPassword" placeholder="Вашата парола">
+          <span id="regPasswordError" class="error"></span>
         </div>
-        <a href="#discounts" class="cta-btn">Виж още отзиви</a>
-    </section>
 
-    <!-- Special Offers -->
-    <section id="discounts" class="section bg-light">
-        <h2>Промоции за твоето събитие</h2>
-        <p>✅ 10% отстъпка за ранни резервации!</p>
-        <a href="#reservation" class="cta-btn">Резервирай сега и вземи отстъпка!</a>
-    </section>
+        <button type="submit">Регистрирай се</button>
+      </form>
+    </div>
 
-    <!-- Reservation Form -->
-    <section id="reservation" class="section">
-        <h2>Запази своята спомени!</h2>
-        <form>
-            <input type="text" class="form-control mb-3" placeholder="Дата и час 📅" required>
-            <input type="text" class="form-control mb-3" placeholder="Тип събитие 🎉" required>
-            <input type="text" class="form-control mb-3" placeholder="Избор на пакет 📸" required>
-            <input type="text" class="form-control mb-3" placeholder="Местоположение 📍" required>
-            <button type="submit" class="cta-btn">Изпрати заявка</button>
-        </form>
-    </section>
+    <!-- Вход -->
+    <div class="form-container" id="loginFormContainer">
+      <h2>Вход</h2>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="loginEmail">Имейл:</label>
+          <input type="email" id="loginEmail" placeholder="Вашият имейл">
+          <span id="loginEmailError" class="error"></span>
+        </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p>📧 hello@unique.bg | 📞 +359 888 123 456 | 📍 София, България</p>
-        <p>Следвай ни: <a href="#">Instagram</a> | <a href="#">Facebook</a> | <a href="#">TikTok</a></p>
-    </footer>
+        <div class="form-group">
+          <label for="loginPassword">Парола:</label>
+          <input type="password" id="loginPassword" placeholder="Вашата парола">
+          <span id="loginPasswordError" class="error"></span>
+        </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <button type="submit">Влез</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="section bg-light" id="about">
+    <h2>Твоето събитие от всеки ъгъл!</h2>
+    <p>Добре дошли в – твоето място!</p>
+    <a href="#services" class="cta-btn">Открий повече</a>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="section">
+    <h2>Нашите топ предложения</h2>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <img src="photo.jpg" alt=" ">
+          <h4>уау</h4>
+          <p>с приятели.</p>
+        </div>
+        <div class="col-md-3">
+          <img src="static-photo.jpg" alt="Статична визуализация">
+          <h4></h4>
+          <p>момнти.</p>
+        </div>
+        <div class="col-md-3">
+          <img src="phone.jpg" alt="фоне">
+          <h4>репоН</h4>
+          <p>Запиши пожелания.</p>
+        </div>
+        <div class="col-md-3">
+          <img src="green-screen.jpg" alt="Зелен екран">
+          <h4>ЕКРАН</h4>
+          <p>фонове.</p>
+        </div>
+      </div>
+    </div>
+    <a href="#gallery" class="cta-btn">услугите</a>
+  </section>
+
+  <!-- Video Gallery -->
+  <section id="gallery" class="section bg-light">
+    <h2>Виж магията в действие</h2>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/your-video-id" frameborder="0" allowfullscreen></iframe>
+    <a href="#reviews" class="cta-btn">Разгледай още</a>
+  </section>
+
+  <!-- Reviews -->
+  <section id="reviews" class="section">
+    <h2>Какво казват клиентите?</h2>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <img src="review1.jpg" alt="Отзив 1">
+          <p>„Най-голямото забавление “</p>
+        </div>
+        <div class="col-md-4">
+          <img src="review2.jpg" alt="Отзив 2">
+          <p>„Перфектно за фирмени партита!“ - Иван Петров</p>
+        </div>
+        <div class="col-md-4">
+          <img src="review3.jpg" alt="Отзив 3">
+          <p>„Супер забавно и лесно!“ - Георги Димитров</p>
+        </div>
+      </div>
+    </div>
+    <a href="#discounts" class="cta-btn">Виж още отзиви</a>
+  </section>
+
+  <!-- Special Offers -->
+  <section id="discounts" class="section bg-light">
+    <h2>Промоции за твоето събитие</h2>
+    <p>✅ 10% отстъпка за ранни резервации!</p>
+    <a href="#reservation" class="cta-btn">Резервирай сега и вземи отстъпка!</a>
+  </section>
+
+  <!-- Reservation Form -->
+  <section id="reservation" class="section">
+    <h2>Запази своята спомени!</h2>
+    <form>
+      <input type="text" class="form-control mb-3" placeholder="Дата и час 📅" required>
+      <input type="text" class="form-control mb-3" placeholder="Тип събитие 🎉" required>
+      <input type="text" class="form-control mb-3" placeholder="Избор на пакет 📸" required>
+      <input type="text" class="form-control mb-3" placeholder="Местоположение 📍" required>
+      <button type="submit" class="cta-btn">Изпрати заявка</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>📧 hello@unique.bg | 📞 +359 888 123 456 | 📍 София, България</p>
+    <p>Следвай ни: <a href="#">Instagram</a> | <a href="#">Facebook</a> | <a href="#">TikTok</a></p>
+  </footer>
+
+  <!-- Съобщение за успешен вход (горен десен ъгъл) + бутон за изход -->
+  <div id="welcomeMessage">
+    <span id="welcomeText"></span>
+    <button id="logoutBtn">Изход</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    let registeredUsers = []; // Тук пазим регистрираните потребители
+
+    // 1. Валидация на регистрационната форма
+    function validateRegistrationForm() {
+      let valid = true;
+      const name = document.getElementById('regName').value;
+      const email = document.getElementById('regEmail').value;
+      const password = document.getElementById('regPassword').value;
+
+      document.getElementById('regNameError').textContent = '';
+      document.getElementById('regEmailError').textContent = '';
+      document.getElementById('regPasswordError').textContent = '';
+
+      if (!name) {
+        document.getElementById('regNameError').textContent = 'Моля, въведете име.';
+        valid = false;
+      }
+      if (!email.includes('@')) {
+        document.getElementById('regEmailError').textContent = 'Моля, въведете валиден имейл.';
+        valid = false;
+      }
+      if (password.length < 8) {
+        document.getElementById('regPasswordError').textContent = 'Паролата трябва да е поне 8 символа.';
+        valid = false;
+      }
+      return valid;
+    }
+
+    // 2. Обработчик при регистрация
+    function handleRegistrationSubmit(e) {
+      e.preventDefault();
+
+      if (validateRegistrationForm()) {
+        const name = document.getElementById('regName').value;
+        const email = document.getElementById('regEmail').value;
+        const password = document.getElementById('regPassword').value;
+
+        // Добавяме потребителя в масива
+        registeredUsers.push({ name, email, password });
+
+        alert('Регистрацията е успешна!');
+        document.getElementById('registrationForm').reset();
+
+        // Скриваме формата за регистрация
+        document.getElementById('registrationFormContainer').style.display = 'none';
+      }
+    }
+
+    // 3. Валидация на формата за вход
+    function validateLoginForm() {
+      let valid = true;
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+
+      document.getElementById('loginEmailError').textContent = '';
+      document.getElementById('loginPasswordError').textContent = '';
+
+      if (!email) {
+        document.getElementById('loginEmailError').textContent = 'Моля, въведете имейл.';
+        valid = false;
+      }
+      if (password.length < 8) {
+        document.getElementById('loginPasswordError').textContent = 'Паролата трябва да е поне 8 символа.';
+        valid = false;
+      }
+      return valid;
+    }
+
+    // 4. Обработчик при вход
+    function handleLoginSubmit(e) {
+      e.preventDefault();
+
+      if (validateLoginForm()) {
+        const email = document.getElementById('loginEmail').value;
+        const password = document.getElementById('loginPassword').value;
+
+        // Търсим дали има такъв потребител
+        const user = registeredUsers.find(u => u.email === email && u.password === password);
+
+        if (user) {
+          // Скриваме формата за вход
+          document.getElementById('loginFormContainer').style.display = 'none';
+
+          // Показваме съобщение в горния десен ъгъл
+          const welcomeDiv = document.getElementById('welcomeMessage');
+          const welcomeText = document.getElementById('welcomeText');
+          welcomeText.textContent = `Добре дошъл, ${user.name}!`;
+          welcomeDiv.style.display = 'flex'; // 'flex', за да подредим текста и бутона
+
+          // Нулираме формата
+          document.getElementById('loginForm').reset();
+        } else {
+          document.getElementById('loginEmailError').textContent = 'Няма регистриран потребител с тези данни.';
+        }
+      }
+    }
+
+    // 5. Изход
+    function handleLogout() {
+      // Скриваме съобщението
+      document.getElementById('welcomeMessage').style.display = 'none';
+      document.getElementById('welcomeText').textContent = '';
+
+      // Показваме отново формите (ако желаем и регистрацията)
+      document.getElementById('loginFormContainer').style.display = 'block';
+      document.getElementById('registrationFormContainer').style.display = 'block';
+    }
+
+    // Добавяне на слушатели за събитията
+    document.getElementById('registrationForm').addEventListener('submit', handleRegistrationSubmit);
+    document.getElementById('loginForm').addEventListener('submit', handleLoginSubmit);
+    document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+  </script>
 </body>
 </html>
